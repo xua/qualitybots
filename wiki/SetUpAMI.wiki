@@ -1,26 +1,42 @@
+#summary How to set up the Amazon AMI for the client component.
 #labels QualityBots,AMI_SETUP
-# How to set up Amazon AMI
 
 = Introduction =
 
-This document explains the process of setting up Amazon AMI for qualitybots run.
+The QualityBots tool uses Amazon EC2 for the clients that crawl the webpages. This document explains the process of setting up an Amazon Machine Image (AMI) for QualityBots to use.
 
 
-= Details =
+= Using the Existing AMI =
 
-We have custom created AMI that is available for public use. AMI ID: ami-19a66b70.  _*Username*: administrator _*Password*: QualityBots.
+We have created a custom AMI that is already setup and is available for public use:
+{{{
+AMI ID: ami-19a66b70
+Username: administrator
+Password: QualityBots
+}}}
 
-Make sure to change your AMI passwords or associate AMI with your security group to avoid intrusion. Once done with changing password, ensure to update the scheduled task which runs qualitybots test to match the credentials. Take the snapshot of AMI and save it under your account. Currently we take the first available AMI from AWS account, so make sure this is the only AMI you have in your account.
+Make sure to change the AMI password and associate the AMI with your security group to avoid intrusion. Once done with changing the password, you should update the scheduled task which runs QualityBots to match the  updated credentials. 
 
-Here are the instructions for creating a new AMI from scratch: 
-  * Get a standard Windows Server 2008 AMI from Amazon’s public AMI.
-  * Start the AMI and change the AMI’s Administrator password for safety reasons.
-  * Install python 2.6 from http://www.python.org/download/
-  * Make sure to add python to system path so it’s accessible from anywhere.
-  * Create a directory where you can put all the files required for run (e.g. C:\Bots) and     add that directory to PATH.
-  * Download and install latest chrome driver.  http://code.google.com/p/chromium/downloads/list. Make sure to put ChromeDriver in directory created in step # 5.
-  * Download and install selenium 2.7.0 python bindings from here http://pypi.python.org/pypi/selenium. Alternatively one can install “pip” and then run “pip install selenium”. Later is the easiest way to install selenium.
-  * Build and put “download_files_bundle.zip” under the directory created in step # 5.
-  * Setup a scheduled task in windows with appropriate credentials (ensure you set it to run even when user is not logged in). Scheduled task should kick off and run “python download_files_bundle.zip”.
-  * Take a snapshot of AMI and save it and now you are ready to go.
-  * Feel free to install other additional tools to help with basic debugging - An Editor - Notepad++, Firefox etc.
+Take a snapshot of the AMI and save it under your account. Currently, QualityBots uses the first available AMI from your AWS account with the correct OS, so make sure that this is the only AMI you have in your account or that you update the code to use the specific AMI ID.
+
+= Creating Your Own AMI =
+
+If you'd like to create your own AMI, there are a few prerequisites that are required for the QualityBots client to run. Here are the instructions for creating a new AMI from scratch: 
+
+=== Setup the image within AWS ===
+  # Get a standard Windows Server 2008 AMI from Amazon’s public AMI.
+  # Start the AMI and change the AMI’s Administrator password for safety reasons.
+
+=== Install the necessary software ===
+  # Install Python 2.6 from http://www.python.org/download/. Make sure to add python to system path so it’s accessible from anywhere.
+  # Download and install the Selenium 2.7.0 Python bindings from http://pypi.python.org/pypi/selenium. Alternatively, you can install “pip” and then run "pip install -U selenium”.
+  # Create a directory where you can put all the files required for the run (e.g. C:\QualityBots) and add that directory to the Windows PATH. This will be used as the QualityBots working directory.
+  # Download and install the latest chrome driver from http://code.google.com/p/chromium/downloads/list. Make sure to put ChromeDriver in in the previously created QualityBots working directory.
+  # From the QualityBots source, build “download_files_bundle.zip” and put the bundle in the QualityBots working directory. When building with the build.py script, the download_files_bundle.zip will be placed in the src/appengine/static directory.
+  # Optionally, feel free to install other additional tools to help with basic debugging.
+
+=== Image configuration ===
+  # Setup a scheduled task in Windows with appropriate credentials (ensure you set it to run even when user is not logged in). The scheduled task should kick off on machine start up and should run “python download_files_bundle.zip”.
+  # Take a snapshot of AMI and save it.
+
+After following these steps, your AMI is setup and ready to go.
