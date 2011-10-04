@@ -1,0 +1,26 @@
+#labels QualityBots,AMI_SETUP
+# How to set up Amazon AMI
+
+= Introduction =
+
+This document explains the process of setting up Amazon AMI for qualitybots run.
+
+
+= Details =
+
+We have custom created AMI that is available for public use. AMI ID: ami-19a66b70.  _*Username*: administrator _*Password*: QualityBots.
+
+Make sure to change your AMI passwords or associate AMI with your security group to avoid intrusion. Once done with changing password, ensure to update the scheduled task which runs qualitybots test to match the credentials. Take the snapshot of AMI and save it under your account. Currently we take the first available AMI from AWS account, so make sure this is the only AMI you have in your account.
+
+Here are the instructions for creating a new AMI from scratch: 
+  * Get a standard Windows Server 2008 AMI from Amazon’s public AMI.
+  * Start the AMI and change the AMI’s Administrator password for safety reasons.
+  * Install python 2.6 from http://www.python.org/download/
+  * Make sure to add python to system path so it’s accessible from anywhere.
+  * Create a directory where you can put all the files required for run (e.g. C:\Bots) and     add that directory to PATH.
+  * Download and install latest chrome driver.  http://code.google.com/p/chromium/downloads/list. Make sure to put ChromeDriver in directory created in step # 5.
+  * Download and install selenium 2.7.0 python bindings from here http://pypi.python.org/pypi/selenium. Alternatively one can install “pip” and then run “pip install selenium”. Later is the easiest way to install selenium.
+  * Build and put “download_files_bundle.zip” under the directory created in step # 5.
+  * Setup a scheduled task in windows with appropriate credentials (ensure you set it to run even when user is not logged in). Scheduled task should kick off and run “python download_files_bundle.zip”.
+  * Take a snapshot of AMI and save it and now you are ready to go.
+  * Feel free to install other additional tools to help with basic debugging - An Editor - Notepad++, Firefox etc.
