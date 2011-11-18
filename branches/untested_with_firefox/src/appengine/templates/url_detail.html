@@ -1,0 +1,84 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <title>QualityBots Detail Results Page</title>
+  <link rel="stylesheet" href="/s/url_detail.css" type="text/css" />
+  <script type="text/javascript" src="/js/url_detail_script.js"></script>
+</head>
+<body>
+<div class="headerContainer">
+  <img src="/s/qualitybotslogo.png" class="headerLogo"
+       alt="QualityBots" />
+  <a class="headerLink" href="/url/dashboard">
+    <div class="headerButton dashboardButton">Dashboard</div>
+  </a>
+  <div class="headerButtonSelected resultsButton">Results</div>
+  <div class="userWelcome">{{email}} |
+    <a href="{{logout_url}}">Log Out</a>
+  </div>
+  <div class="dashboardDivider"></div>
+</div>
+
+<div class="scorePane">
+  <div class="scoreTitle">Layout Score</div>
+  <div id="scorePercent" class="scorePercent"></div>
+  <div class="currentTitle">Current</div>
+  <div id="totalElements" class="totalElements">... elements total</div>
+  <div class="elementsDivider"></div>
+  <div id="matchedElements" class="matchedElements">... matched</div>
+  <div id="differingElements" class="differingElements">... need investigation</div>
+  <div class="channelTitle">Chrome Channels</div>
+  <table class="browserTable" cellspacing="0"
+         summary="Scores for this url on other browser channels.">
+    <tr class="refBrowserRow">
+      <td class="browserScore">
+        <span class="baseLabel">BASE</span>
+      </td>
+      <td style="width: 110px">
+         <span class="versionTitle refVersionTitle">Stable</span>
+      </td>
+      <td style="width: 100px">
+         <span class="versionNumber"></span>
+      </td>
+    </tr>
+  </table>
+</div>
+
+<div class="layoutDescription">
+ Layout of page
+ <span id="urlLabel" class="layoutStrongText">...</span>
+ on
+ <span class="layoutStrongText">Latest Run </span>
+ <span class="overlayLink overlayLinkActive"
+       id="overlayLink">Enable Element Overlay</span>
+</div>
+<div id="comparisonContainer" class="hidden">
+  <div id="dataFrames">
+    <div id="testFrame" class="screenshotFrame">
+      <div id="testData" class="screenshotContainer">
+        <img class="testBrowserScreenshot"
+             id="testScreenshot" src="/s/blank.png"
+             alt="Screenshot of browser under test"/>
+      </div>
+      <div id="testBrowserLabelContainer" class="browserLabelContainer">
+        <span id="testBrowserLabel" class="browserLabel"></span>
+        <div id="testElementData" class="elementData"></div>
+      </div>
+    </div>
+    <div id="refFrame" class="screenshotFrame">
+      <div id="refData" class="screenshotContainer">
+        <img class="testBrowserScreenshot"
+             id="refScreenshot" src="/s/blank.png"
+             alt="Screenshot of browser under test"/>
+      </div>
+      <div id="refBrowserLabelContainer" class="browserLabelContainer">
+        <span id="refBrowserLabel" class="browserLabel"></span>
+        <span class="browserLabel baselineLabel"> - baseline</span>
+        <div id="refElementData" class="elementData"></div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+
+</html>
